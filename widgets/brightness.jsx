@@ -10,10 +10,10 @@ export default function BrightnessStatus() {
     return `${Math.round(level * 100)}%`;
   });
 
-  console.log(brightnessPercentage);
+  // console.log(brightnessPercentage);
 
   return (
-    <box>bright
+    <box>
       <label label={brightnessPercentage} />
     </box>
   );
