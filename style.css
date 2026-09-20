@@ -1,37 +1,56 @@
-window  {
-    background: rgba(7, 2, 77, 0.978);
-    min-height: 30px;
+* {
+  color: #000;
+  box-shadow: none;
+  /* padding: 0; */
+  /* margin: 0; */
 }
 
-
-.section * {
-    color: black;
-    margin: 0 2px;
-    background: white;
-    padding: 2px;
-    border-radius: 10px;
+window {
+  /* background: rgb(210, 208, 208); */
+  min-height: 30px;
 }
 
+/* -----------------------status bar------------------------------- */
+.section {
+  margin: 0 15px;
+  padding: 3px;
+  /* outline: solid 1px red; */
+  border-radius: 10px;
+}
+/* -----------------------status bar------------------------------- */
 
-.power-btn {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 0;
+/* -----------------------power options-------------------------------- */
+
+.power-options-popover * {
+  color: black;
+}
+/* -----------------------power options-------------------------------- */
+
+/* -----------------------network-------------------------------- */
+
+.network_popover {
+  background-color: transparent;
+  min-height: 400px;
+  min-width: 410px;
+  border-radius: 0; 
+  /* outline: solid 1px red; */
+}  
+
+.network_popover switch {
+  border: solid 1px gray;
+  margin: 0px 0 0 10px;
+  min-width: 30px;
+  min-height: 5px;
+  background: transparent;
 }
 
-.power-options-popover {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 0;
+.network_popover switch slider {
+  color: black;
+  border: none;
+  background: rgb(0, 0, 112);
+  border-radius: 50%;
+  min-width: 5px;
+  min-height: 5px;
+  margin: 1px;
 }
-
-
-
-.power-options-popover contents {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 0;
-}
+/* -------------------------------------------------------- */

@@ -4,9 +4,10 @@ import Clock from "./clock.jsx";
 import BatteryStats from "./battery.jsx";
 import BrightnessStatus from "./brightness.jsx";
 import PowerBtn from "./power_btn.jsx";
-// import PowerOptions from "./power_options.jsx";
+import NetworkStatus from "./network.jsx"
 
 export default function StatusBar({ monitor }) {
+  
   const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor;
   const { CENTER, END, START } = Gtk.Align;
 
@@ -33,6 +34,7 @@ export default function StatusBar({ monitor }) {
 
         <box $type="end" halign={END} class="section" valign={CENTER}>
           {/* right widgets go here */}
+          <NetworkStatus /> 
           <Clock />
           <BatteryStats />
           <BrightnessStatus />
