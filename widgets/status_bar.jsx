@@ -4,42 +4,40 @@ import Clock from "./clock.jsx";
 import BatteryStats from "./battery.jsx";
 import BrightnessStatus from "./brightness.jsx";
 import PowerBtn from "./power_btn.jsx";
-import NetworkStatus from "./network.jsx"
+import NetworkStatus from "./network/network.jsx";
 
 export default function StatusBar({ monitor }) {
-  
   const { TOP, BOTTOM, LEFT, RIGHT } = Astal.WindowAnchor;
+  const { EXCLUSIVE } = Astal.Exclusivity;
   const { CENTER, END, START } = Gtk.Align;
 
   return (
     <window
       visible
+      namespace="primaryBar"
       anchor={TOP | LEFT | RIGHT}
-      // cssClasses={["statusbar"]}
       monitor={monitor}
-      exclusivity={Astal.Exclusivity.EXCLUSIVE}
-      // application={App}
+      exclusivity={EXCLUSIVE}
+      keymode={Astal.Keymode.ON_DEMAND}
     >
       <centerbox>
-        {/* Map children to specific GTK slots using $type */}
-        <box $type="start" halign={START} class="section" valign={CENTER}>
-          {/* left widgets go here */}
+        <box $type="start" class="section">
+          {/* left widgets */}
           <Clock />
         </box>
 
-        <box $type="center" halign={CENTER} class="section" valign={CENTER}>
-          {/* center widgets go here */}
+        <box $type="center" class="section">
+          {/* center widgets*/}
           <Clock />
         </box>
 
-        <box $type="end" halign={END} class="section" valign={CENTER}>
-          {/* right widgets go here */}
-          <NetworkStatus /> 
+        <box $type="end" class="section">
+          {/* right widgets */}
+          <NetworkStatus />
           <Clock />
           <BatteryStats />
           <BrightnessStatus />
           <PowerBtn />
-          {/* <PowerOptions /> */}
         </box>
       </centerbox>
     </window>
