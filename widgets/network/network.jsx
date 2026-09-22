@@ -11,11 +11,13 @@ export default function NetworkStatus() {
   const { CENTER, END, START } = Gtk.Align;
   const [accessPoints, setAccessPoints] = createState(wifi.access_points);
 
-  const isWifiEnabled = () => {
-    const isEnabled = wifi.enabled;
+  const [isWifiEnabled, setIsWifiEnabled] = createState(wifi.enabled);
 
-    return isEnabled;
-  };
+  // const isWifiEnabled = () => {
+  //   const isEnabled = wifi.enabled;
+
+  //   return isEnabled;
+  // };
 
   const strength = createBinding(wifi, "strength");
   const isEnabled = createBinding(wifi, "enabled");
@@ -38,6 +40,8 @@ export default function NetworkStatus() {
     if (strengthValue < 21) return "network-wireless-connected-00";
   });
 
+  print(typeof wifiIcon, 'wifi icon type')
+
   return (
     <menubutton $={pointer}>
       <image iconName={wifiIcon} pixelSize={20} />
@@ -45,23 +49,34 @@ export default function NetworkStatus() {
       <popover
         hasArrow={true}
         onShow={() => {
+          print(wifi.enabled, "popovershow");
+
           if (wifi.get_enabled()) {
             wifi.scan();
             console.log("scanning succesful");
           }
 
           setAccessPoints(wifi.access_points);
-          setTimeout(() => {
-            setAccessPoints(wifi.access_points);
-          }, 10000);
+          // setTimeout(() => {
+          //   setAccessPoints(wifi.access_points);
+          // }, 2000);
         }}
       >
         <box class="network_popover" orientation={VERTICAL}>
-          <CenterHeader isWifiEnabled={isWifiEnabled} wifi={wifi} />
+          <CenterHeader
+            isWifiEnabled={isWifiEnabled}
+            setIsWifiEnabled={setIsWifiEnabled}
+            wifi={wifi}
+            setAccessPoints={setAccessPoints}
+          />
           <AccessPoints
+            isWifiEnabled={isWifiEnabled}
+            setIsWifiEnabled={setIsWifiEnabled}
             wifi={wifi}
             accessPoints={accessPoints}
             setAccessPoints={setAccessPoints}
+            strength={strength}
+            isEnabled={isEnabled}
           />
         </box>
       </popover>

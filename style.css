@@ -1,12 +1,43 @@
+/* @import url("./widgets/network/access_points/style.css"); */
+
+/* -------------------------------- /* @import url("./widgets/network/access_points/style.css" ----------------------------------------- */
+
+.accessPoints-con {
+  /* color: red; */
+  border-bottom: solid 1px rgb(129, 127, 127);
+}
+
+/* -------------------------------- /* @import url("./widgets/network/access_points/style.css" ----------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 * {
   color: #000;
-  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  /* box-shadow: none; */
   /* padding: 0; */
   /* margin: 0; */
 }
 
 window {
-  /* background: rgb(210, 208, 208); */
+  background: rgb(210, 208, 208);
   min-height: 30px;
 }
 
