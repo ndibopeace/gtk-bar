@@ -1,9 +1,9 @@
 import { Gtk } from "ags/gtk4";
-import { createComputed, createBinding, createState, For , With} from "ags";
+import { createComputed, createBinding, createState, For, With } from "ags";
 
 export default function AccessPoints(prop) {
-
-  const { wifi, accessPoints, setAccessPoints, isEnabled, isWifiEnabled } =  prop;
+  const { wifi, accessPoints, setAccessPoints, isEnabled, isWifiEnabled } =
+    prop;
 
   const [selectedWifiName, setSelectedWifiName] = createState(null);
   const { HORIZONTAL, VERTICAL } = Gtk.Orientation;
@@ -15,58 +15,117 @@ export default function AccessPoints(prop) {
     <box orientation={VERTICAL}>
       <box orientation={VERTICAL}>
         <With value={isWifiEnabled}>
+          {(value) =>
+            value ? (
+              <box orientation={VERTICAL}>
 
-          {(value) => (value ? (
-            
-            <box orientation={VERTICAL} >
-            <For each={accessPoints}  >
-          {(accessPointObj) => {
-            const strength = createBinding(accessPointObj, "strength");
-            const strengthPercentage = strength((value) => {
-              return `${value}%`;
-            });
+                <For each={accessPoints}>
 
-            return (
-              <box orientation={VERTICAL} class="accessPoints-con">
-                <button
-                  onClicked={() => {
-                    setSelectedWifiName(
-                      selectedWifiName() === accessPointObj.ssid
-                        ? null
-                        : accessPointObj.ssid,
+                  {(accessPointObj) => {
+
+                    const strength = createBinding(accessPointObj, "strength");
+                    const strengthPercentage = strength((value) => {
+                      return `${value}%`;
+                    });
+
+                    return (
+                      <box orientation={VERTICAL} class="accessPoints-con">
+                        <button
+                          onClicked={() => {
+                            setSelectedWifiName(
+                              selectedWifiName() === accessPointObj.ssid
+                                ? null
+                                : accessPointObj.ssid,
+                            );
+                          }}
+                        >
+                          <centerbox
+                            orientation={HORIZONTAL}
+                            class="accessPoints-details"
+                          >
+                            <box $type="start" orientation={VERTICAL}>
+                              <label label={accessPointObj.ssid} xalign={0} />
+                              <label label={accessPointObj.bssid} xalign={0} />
+                              {accessPointObj.requires_password ? <label label='Encrypted' xalign={0} />: <label label='open' xalign={0} />}
+                              {/* {print(accessPointObj.ssid,' encrypted?', accessPointObj.requires_password)} */}
+                            </box>
+                            <box $type="end">
+                              <label
+                                label={strengthPercentage}
+                                halign={Gtk.Align.END}
+                              />
+                            </box>
+                          </centerbox>
+                        </button>
+                        <entry
+                        text=''
+                          visibility={true}
+                          visible={selectedWifiName.as(
+                            (p) => p === accessPointObj.ssid,
+                          )}
+                        />
+                      </box>
                     );
                   }}
-                >
-                  <centerbox
-                    orientation={HORIZONTAL}
-                    class="accessPoints-details"
-                  >
-                    <box $type="start">
-                      <label label={accessPointObj.ssid} xalign={0} />
-                    </box>
-                    <box $type="end">
-                      <label
-                        label={strengthPercentage}
-                        halign={Gtk.Align.END}
-                      />
-                    </box>
-                  </centerbox>
-                </button>
-                <entry
-                  visibility={true}
-                  visible={selectedWifiName.as(
-                    (p) => p === accessPointObj.ssid,
-                  )}
-                />
+
+                </For>
               </box>
-            );
-          }}
-        </For></box>) : <label label='Wireless is off'/>)}
+            ) : (
+              <label label="Wireless is off" />
+            )
+          }
         </With>
       </box>
-      {/* <label label="Hey you" /> */}
+    </box>
+  );
+}
 
-      {/* <For each={accessPoints}  >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  /* <label label="Hey you" /> */
+}
+
+{
+  /* <For each={accessPoints}  >
           {(accessPointObj) => {
             const strength = createBinding(accessPointObj, "strength");
             const strengthPercentage = strength((value) => {
@@ -108,9 +167,7 @@ export default function AccessPoints(prop) {
               </box>
             );
           }}
-        </For> */}
-    </box>
-  );
+        </For> */
 }
 
 //   return (
